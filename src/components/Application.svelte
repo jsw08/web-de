@@ -1,12 +1,12 @@
 <script lang="ts">
+    export let title: number
+
     let x: number = 15;
     let y: number = 15;
     let cW: number;
     let cH: number;
-    let wW: number;
-    let wH: number;
     let moving: boolean = false;
-    let maximized: boolean = true;
+    let maximized: boolean = false;
     $: mxWH = maximized ? "100%" : "";
 
     const mMove = (e: MouseEvent): void => {
@@ -21,8 +21,6 @@
 <svelte:window
     on:mouseup={(e) => (moving = false)}
     on:mousemove={mMove}
-    bind:innerWidth={wW}
-    bind:innerHeight={wH}
 />
 
 <div
@@ -32,17 +30,19 @@
     style:height={mxWH}
 >
     <div
-        class="h-6 shadow-md flex flex-row border"
+        class="h-6 shadow-md flex flex-row border px-1"
         on:mousedown={(e) => (moving = true)}
         bind:clientWidth={cW}
         bind:clientHeight={cH}
         style:cursor={moving ? "grab" : "move"}
     >
         <span class="flex-grow">hi</span>
+        <div>
+            <button on:click={() => maximized = !maximized}>&#x1f5d6;</button>
+            <button class="font-bold">&#x2715;</button> <!-- TODO -->
+        </div>
     </div>
     <div class="flex-grow bg-white">
-        hi
-        {cW}
-        {cH}
+        <slot/>
     </div>
 </div>
