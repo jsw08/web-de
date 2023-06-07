@@ -1,21 +1,48 @@
 <script lang="ts">
     let x: number = 15;
     let y: number = 15;
+    let cW: number;
+    let cH: number;
+    let wW: number;
+    let wH: number;
     let moving: boolean = false;
+    let maximized: boolean = true;
+    $: mxWH = maximized ? "100%" : "";
 
-    function mMove (e: MouseEvent): void {if (moving) {
-        x += e.movementX;
-        y += e.movementY;
-    }}
-
-    function mDown (e: MouseEvent): void {
-
-    }
+    const mMove = (e: MouseEvent): void => {
+        if (moving) {
+            if (maximized) maximized = false;
+            x = e.clientX - cW / 2;
+            y = e.clientY - cH / 2;
+        }
+    };
 </script>
-<svelte:window on:mouseup={e => moving=false} on:mousemove={mMove}/> 
 
-<div class="absolute left-[15px] top-[15px] min-w-[5cm] min-h-[5rem] resize overflow-auto  rounded-xl shadow-xl border-2 flex flex-col bg-neutral-100" style:left={x + "px"} style:top={y + "px"}>
-    <div class="h-6 shadow-lg border-b-2 hover:cursor-move bg-white" on:mousedown={e => moving = true}>hi</div>
-    <div class="flex-grow  rounded-md border bg-white">hi</div>
+<svelte:window
+    on:mouseup={(e) => (moving = false)}
+    on:mousemove={mMove}
+    bind:innerWidth={wW}
+    bind:innerHeight={wH}
+/>
 
+<div
+    class="fixed flex flex-col min-w-[3in] min-h-[3in] resize overflow-auto rounded-lg shadow-lg border-2"
+    style="left: {maximized ? 0 : x}px; top: {maximized ? 0 : y}px;"
+    style:width={mxWH}
+    style:height={mxWH}
+>
+    <div
+        class="h-6 shadow-md flex flex-row border"
+        on:mousedown={(e) => (moving = true)}
+        bind:clientWidth={cW}
+        bind:clientHeight={cH}
+        style:cursor={moving ? "grab" : "move"}
+    >
+        <span class="flex-grow">hi</span>
+    </div>
+    <div class="flex-grow bg-white">
+        hi
+        {cW}
+        {cH}
+    </div>
 </div>
