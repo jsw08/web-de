@@ -2,4 +2,4 @@
   import Application from './components/Application.svelte'
 </script>
 
-<Application/>
+<Application title="Example Application"/>
