@@ -1,5 +1,5 @@
 <script type="ts">
-  import Application from './components/Application.svelte'
+  import Example from './applications/Example.svelte'
 </script>
 
-<Application title="Example Application"/>
+<Example/>
