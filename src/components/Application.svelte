@@ -30,13 +30,13 @@
     style:height={mxWH}
 >
     <div
-        class="h-6 shadow-md flex flex-row border px-1"
+        class="h-6 shadow-md flex flex-row border px-1 select-none"
         on:mousedown={() => (moving = true)}
         bind:clientWidth={cW}
         bind:clientHeight={cH}
         style:cursor={moving ? "grab" : "move"}
     >
-        <span class="flex-grow">hi</span>
+        <span class="flex-grow">{title}</span>
         <div>
             <button class="" on:click={() => maximized = !maximized}>&#x1f5d6;</button>
             <button class="font-bold">&#x2715;</button> <!-- TODO: make closeable -->
