@@ -1,6 +1,6 @@
 <script lang="ts">
     import {type Application, openApps} from '../stores'
-    export let thisApplication: Application;
+    export let appId: string;
     export let title: string;
 
     let x: number = 15;
@@ -19,7 +19,7 @@
         }
     };
 
-    const close = (): void => openApps.update(a => a.filter(v => v.id !== thisApplication.id));   
+    const close = (): void => openApps.update(a => a.filter(v => v.id !== appId));   
 
 </script>
 
@@ -34,7 +34,6 @@
     style="left: {maximized ? 0 : x}px; top: {maximized ? 0 : y}px;"
     style:width={mxWH}
     style:height={mxWH}
-    on:click={() => maximized = !maximized}
 >
     <div
         class="h-6 shadow-md flex flex-row border px-1 select-none"
@@ -46,7 +45,7 @@
         <span class="flex-grow">{title}</span>
         <div>
             <button class="" on:click={() => maximized = !maximized}>&#x1f5d6;</button>
-            <button class="font-bold" on:click={close}>&#x2715;</button> <!-- TODO: make closeable -->
+            <button class="font-bold" on:click={close}>&#x2715;</button>
         </div>
     </div>
     <div class="flex-grow bg-white">
