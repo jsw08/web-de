@@ -48,7 +48,7 @@
             <button class="font-bold" on:click={close}>&#x2715;</button>
         </div>
     </div>
-    <div class="flex-grow bg-white">
+    <div class="flex-grow bg-white flex">
         <slot/>
     </div>
 </div>
